@@ -21,8 +21,6 @@
     
     main {
         margin-top: 90px;
-        margin-left: 5%;
-        margin-right: 5%;
     }
     
     section {
@@ -36,6 +34,7 @@
     
     .subtitulo {
         width: 100%;
+        margin-left: 7%;
     }
     
     h2 {
@@ -53,6 +52,7 @@
         align-items: center;
         width: 100%;
         height: 100%;
+        margin-left: -2%;
     }
     
     .quizz-item {
@@ -64,12 +64,12 @@
     }
     
     .criar-quiz {
-        margin: 0 1%;
+        margin: 0 1% 0 -1%;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
-        width: 91vw;
+        min-width: 340px;
         height: 181px;
         background: #FAFAFA;
         border: 1px dashed #D5D5D5;
