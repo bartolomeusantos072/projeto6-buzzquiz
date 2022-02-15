@@ -31,18 +31,16 @@
         justify-content: center;
         align-items: center;
         margin-bottom: 5%;
-        background-color: pink;
     }
     
     .subtitulo {
-        width: 91vw;
+        width: 340px;
     }
     
     h2 {
         color: black;
         font-size: 20px;
         font-weight: bold;
-        margin-left: auto;
     }
     
     .todos-quizzes,
@@ -110,7 +108,10 @@
 @media (min-width: 770px){
 
     .criar-quiz{
-     width: 700px;
+        width: calc(340px * 2 + 30px);
+    }
+     .subtitulo{
+     width: calc(340px * 2 + 20px);
 
     }
  
@@ -120,7 +121,10 @@
   
 
     .criar-quiz{
-        width:1090px;
+        width:calc(340px * 3 + 60px); 
+    }
+    .subtitulo{
+        width:calc(340px * 3 + 40px);
        }
  
  } 
