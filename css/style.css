@@ -54,13 +54,39 @@
     }
     
     .quizz-item {
+        display: none;
         width: 91vw;
         height: 181px;
         border-radius: 5px;
-        background-color: red;
         margin: 6px 1%;
     }
-    
+    .quizz-item-modelo{
+        width: 91vw;
+        height: 181px;
+        border-radius: 5px;
+        /* background-color: red; */
+        margin: 6px 1%;
+    }
+    .imagem{
+        
+        background-image: url('https://http.cat/412.jpg');
+        background-size: cover;    
+        background-repeat:   no-repeat;
+        background-position: center;
+        width: 340px;
+        height: 181px;
+        /* object-fit: fill; */ 
+    }
+    .tituto-quizz{
+        
+    }
+    img{
+        position: relative;
+        max-width: 340px;
+        max-height: 181px;
+        object-fit: cover;
+    }
+
     .criar-quiz {
         display: flex;
         flex-direction: column;
