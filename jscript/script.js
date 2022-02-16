@@ -1,3 +1,11 @@
+const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
+promise.then(obterQuizzes)
+
+
+function obterQuizzes(resposta) {
+    console.log(resposta.data);
+}
+
 criarQuiz(0);
 let contador = 0;
 
