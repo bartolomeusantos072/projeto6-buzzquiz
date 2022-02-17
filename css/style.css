@@ -202,8 +202,9 @@ h2 {
 
 .imagens-respostas {
     width: 340px;
+   
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-between;
     margin-top: 1%;
     cursor: pointer;
@@ -225,10 +226,14 @@ h2 {
 
 }
 .resposta{
-    font-size: 1.25em;
+    display: flex;
+    margin:3px;
+}
+h3{
+    word-wrap: break-word;
+    font-size: 13px;
     font-weight: bold;
     text-align: center;
-
 }
 .oculto {
     display: none;
