@@ -1,5 +1,6 @@
 body {
     font-family: 'Roboto';
+    height: 100%;
 }
 
 header {
@@ -68,7 +69,7 @@ h2 {
     align-items: flex-end;
 }
 
-.titulo-quizz {
+.titulo-quizzes {
     width: 301px;
     height: 54px;
     display: flex;
@@ -126,11 +127,13 @@ h2 {
 }
 
 .abrir-quiz {
-    position: absolute;
+    position: fixed;
+    z-index: 2;
     top: 69px;
-    background-color: pink;
+    background-color: #fff;
     width: 100vw;
     height: 100%;
+    overflow-y: scroll;
 }
 
 .abrir-quiz-titulo {
@@ -139,19 +142,97 @@ h2 {
     align-items: center;
     text-align: center;
     color: #FFFFFF;
-    /* background-color: #000000; */
+
 }
-.banner{
+
+.banner {
     width: 100%;
     min-height: 142px;
     max-height: 227px;
-    background-color: green;
+    background-size: cover;
+    background-position-y: 20%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
+.todos-games {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #E5E5E5;
+}
+
+.jogo {
+    margin-top: 1.5em;
+    padding: auto;
+    background-color: #FFF;
+    min-width: 375px;
+    height: calc(100% + 5%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+.unico-jogo{
+    margin: 1%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 340px;
+}
+.titulo-quizz {
+    
+    width: 340px;
+    min-height: 89px;
+    max-height: 137.99px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 19px;
+    
+}
+
+.imagens-respostas {
+    width: 340px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 1%;
+    cursor: pointer;
+    background-color: orange;
+
+}
+
+.imagem {
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between ;
+    align-items: center;
+    
+}
+
+.imagem img {
+    width: 163px;
+    height: 113px;
+
+}
+.resposta{
+    font-size: 1.25em;
+    font-weight: bold;
+    text-align: center;
+
+}
 .oculto {
     display: none;
+    
 }
 
 @media (min-width: 414px) {
