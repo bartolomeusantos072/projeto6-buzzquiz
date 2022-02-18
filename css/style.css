@@ -1,6 +1,6 @@
 body {
     font-family: 'Roboto';
-    height: 100%;
+    
 }
 
 header {
@@ -128,7 +128,7 @@ h2 {
     margin-top: -9px;
 }
 
-.abrir-quiz {
+.abrir-quizz {
     position: fixed;
     z-index: 2;
     top: 69px;
@@ -166,6 +166,7 @@ h2 {
     justify-content: center;
     align-items: center;
     background: #E5E5E5;
+    padding-bottom: 5%;
 }
 
 .jogo {

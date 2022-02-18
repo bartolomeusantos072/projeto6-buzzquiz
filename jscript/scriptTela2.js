@@ -1,3 +1,5 @@
+let contador=1; // para mover o scroll;
+
 /*------------------------------ finalizar TELA 1 e iniciar TELA 2 ----------------------------------------*/
 
 function selecionarQuizz(selecionado, num) {
@@ -6,7 +8,7 @@ function selecionarQuizz(selecionado, num) {
 
     const urlImage = selecionado.style.backgroundImage.split('"')[1];
 
-    document.body.innerHTML += `<div class="abrir-quiz">
+    document.body.innerHTML += `<div class="abrir-quizz">
     <section>
             <div class="banner" style =" background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${urlImage})">
                 <h2 class="abrir-quiz-titulo">${selecionado.querySelector("span").innerText}</h2>
@@ -46,7 +48,7 @@ function exibirQuizz(num) {
                                                 montarQuizz +=` alternativa-false mascara`;
                                             };
 
-                                            montarQuizz += `" onclick="selectAnswer(this,${valor})"> <img src=`+
+                                            montarQuizz += `" onclick="selectAnswer(this,${valor},${i})"> <img src=`+
                                                 answer.image+">"+` <span class="texto-resposta"><h4>${answer.text}</h4></span></div>`;
                                                 
 
@@ -71,20 +73,22 @@ function exibirQuizz(num) {
  let texto=[];
 // let qtdeClick
 let pontos;
-function selectAnswer( cardEscolhido,valor){
-    
-    if(valor){
-        pontos =1;
-    }
-    pontos++;
 
-    texto=cardEscolhido;
-    let opcao = cardEscolhido.parentElement.querySelectorAll(".escolher-resposta");
-  
+
+function selectAnswer( cardEscolhido,logica,num){
+    // if(logica){
+    //     pontos =1;
+    // }
+
+    // pontos++;
     
+    
+
+    const proximoCard =cardEscolhido.parentElement.parentElement.parentElement.parentElement.querySelectorAll(".jogo");    
+    const opcao = cardEscolhido.parentElement.querySelectorAll(".escolher-resposta");
+        
     for(let i =0; i<opcao.length;i++){
         //esta condicional esta certa e completa
-        
         if(opcao[i] != cardEscolhido){
             opcao[i].classList.add("esbranquicado");
             
@@ -92,6 +96,20 @@ function selectAnswer( cardEscolhido,valor){
         opcao[i].style.pointerEvents ="none"; 
         opcao[i].classList.remove("mascara");
     }
-    teste=opcao;//isso é pra eu mexer la no console
+    
+ 
+    setTimeout(() => {
+            let destion = proximoCard[num];
+            destion.scrollIntoView({
+                    behavior: 'smooth'
+                });
+    }, 2000);
+      
+    
+    // isso é pra eu mexer la no console
+    // teste=opcao;
+    // texto=cardEscolhido;
+
+  
 } 
  
