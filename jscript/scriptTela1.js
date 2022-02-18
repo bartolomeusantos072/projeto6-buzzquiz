@@ -16,7 +16,7 @@ function erroObterQuizzes(error) {
     alert.error(error);
 }
 
-let quizzes = [];
+
 let quizzesGame = [];
 function renderizarListaQuizzes(lista, container) {
 
@@ -40,7 +40,7 @@ function renderizarListaQuizzes(lista, container) {
 
     }
 
-    quizzes = document.querySelectorAll(".quizz-item");
+    // quizzes = document.querySelectorAll(".quizz-item");
 
     // for(let i=0;i<quizzes.length;i++){
     //     quizzes[i].style.backgroundImage = `url('${lista[i].image}')`;

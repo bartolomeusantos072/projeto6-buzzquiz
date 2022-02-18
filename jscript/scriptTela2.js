@@ -4,11 +4,11 @@ function selecionarQuizz(selecionado, num) {
 
     document.querySelector("main").style.display="none";
 
-    urlImage = selecionado.style.backgroundImage.split('"')[1];
+    const urlImage = selecionado.style.backgroundImage.split('"')[1];
 
     document.body.innerHTML += `<div class="abrir-quiz">
     <section>
-            <div class="banner" style=" background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${urlImage})">
+            <div class="banner" style =" background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${urlImage})">
                 <h2 class="abrir-quiz-titulo">${selecionado.querySelector("span").innerText}</h2>
             </div>
             <div class="todos-games">
@@ -19,34 +19,42 @@ function selecionarQuizz(selecionado, num) {
 
 }
 
-function comparador() { 
-	return Math.random() - 0.5; 
+function comparador() {
+	return Math.random() - 0.5;
 }
 
-let answers;
 
+let quizzes =[];
 function exibirQuizz(num) {
 
     for (let i = 0; i < quizzesGame[num].questions.length; i++) {
 
         let montarQuizz = `<div class="jogo">
                                 <div class="unico-jogo">
-                                        <span class="titulo-quizz" 
+                                        <span class="titulo-quizz"
                                         style="background-color: ${quizzesGame[num].questions[i].color}"><h3>${quizzesGame[num].questions[i].title}</h3></span>
-                                    <div class="escolher-respostas" onclick="selectAnswer(this)">`;
-                                        answers = quizzesGame[num].questions[i].answers;                  
-                                        answers.sort();
-
+                                    <div class="perguntas">`;
+                                       let answers = quizzesGame[num].questions[i].answers;
+                                        answers.sort(comparador);
                                         answers.forEach(answer => {
+                                        let valor=answer.isCorrectAnswer;    
                                             
-                                            montarQuizz += `<div class="imagem"> <img src=`+
-                                                answer.image+">"+` <span class="resposta"><h4>${answer.text}</h4></span></div>`;
-                                                console.log(answer.image);
+                                            montarQuizz += `<div class="escolher-resposta `;
+                                            if(answer.isCorrectAnswer){
+                                                montarQuizz +=` alternativa-true mascara `;
+                                            }else{
+                                                montarQuizz +=` alternativa-false mascara`;
+                                            };
+
+                                            montarQuizz += `" onclick="selectAnswer(this,${valor})"> <img src=`+
+                                                answer.image+">"+` <span class="texto-resposta"><h4>${answer.text}</h4></span></div>`;
                                                 
+
                                         });
-                    
+                                        
+                                        
             montarQuizz +=`         </div>
-                                </div>                
+                                </div>
                             </div>`;
 
         document.querySelector(".todos-games").innerHTML += montarQuizz;
@@ -55,3 +63,35 @@ function exibirQuizz(num) {
 
 }
 
+
+
+ 
+
+ let teste=[];
+ let texto=[];
+// let qtdeClick
+let pontos;
+function selectAnswer( cardEscolhido,valor){
+    
+    if(valor){
+        pontos =1;
+    }
+    pontos++;
+
+    texto=cardEscolhido;
+    let opcao = cardEscolhido.parentElement.querySelectorAll(".escolher-resposta");
+  
+    
+    for(let i =0; i<opcao.length;i++){
+        //esta condicional esta certa e completa
+        
+        if(opcao[i] != cardEscolhido){
+            opcao[i].classList.add("esbranquicado");
+            
+        }
+        opcao[i].style.pointerEvents ="none"; 
+        opcao[i].classList.remove("mascara");
+    }
+    teste=opcao;//isso é pra eu mexer la no console
+} 
+ 

@@ -206,7 +206,7 @@ h3 {
     text-align: center;
 }
 
-.escolher-respostas {
+.perguntas {
     width: 340px;
    
     display: flex;
@@ -214,11 +214,16 @@ h3 {
     justify-content: space-between;
     margin-top: 1%;
     cursor: pointer;
-    background-color: orange;
+   
 
 }
-
-.imagem {
+.correto{
+    color:green;
+}
+.incorreto{
+    color:red;
+}
+.escolher-resposta {
     display: flex;
     flex-direction: column;
     justify-content:space-between ;
@@ -226,12 +231,12 @@ h3 {
     
 }
 
-.imagem img {
+.escolher-resposta img {
     width: 163px;
     height: 113px;
 
 }
-.resposta{
+.texto-resposta{
     width: 163px;
     display: flex;
     justify-content: center;
@@ -244,8 +249,17 @@ h4{
     font-weight: bold;
     text-align: center;
 }
-.oculto {
-    display: none;
+.esbranquicado img, .esbranquicado span{
+    opacity: 0.2;
+}
+.alternativa-true{
+    color:green
+}
+.alternativa-false{
+    color:red;
+}
+.mascara {
+    color:black;
     
 }
 
