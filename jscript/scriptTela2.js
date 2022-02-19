@@ -70,7 +70,7 @@ function exibirQuizz(escolhido) {
 }
 
 
-let pontuacao;
+
 function selectAnswer(cardEscolhido, logica, num, escolhido) {
     
     const proximoCard = cardEscolhido.parentElement.parentElement.parentElement.parentElement.querySelectorAll(".jogo");
@@ -99,7 +99,7 @@ function selectAnswer(cardEscolhido, logica, num, escolhido) {
         pontos++;
     }
     if((num+1) == proximoCard.length){
-        pontuacao=((pontos*100)/(num+1)).toFixed(2);
+     let  pontuacao=((pontos*100)/(num+1)).toFixed(2);
         pontuacao =Math.round(pontuacao);
         resultadoPontuacao(escolhido, pontuacao);    
     };
@@ -117,7 +117,7 @@ function resultadoPontuacao(escolhido, pontuacao){
     }
     let montarQuizz =`
     <div class="caixa-resultado">
-            <div class="unico-jogo">
+            <div class="resultado-jogo">
                     <span class="titulo-resultado">
                         <h3>${pontuacao}% de acerto: ${resultado.title}!</h3>
                     </span>
@@ -152,7 +152,7 @@ function reiniciarQuizz(){
         behavior: 'smooth'
     });
     
-    pontuacao = 0;
+    pontos = 0;
     
     
     let removerResultado =document.querySelector(".titulo-resultado").parentNode.parentNode;
