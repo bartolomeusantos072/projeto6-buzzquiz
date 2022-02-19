@@ -1,4 +1,4 @@
-let idsDoUsuario = [];
+// let idsDoUsuario = [];
 
 
 const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
@@ -40,11 +40,7 @@ function renderizarListaQuizzes(lista, container) {
 
     }
 
-    // quizzes = document.querySelectorAll(".quizz-item");
-
-    // for(let i=0;i<quizzes.length;i++){
-    //     quizzes[i].style.backgroundImage = `url('${lista[i].image}')`;
-    // }
+  
 }
 
 
