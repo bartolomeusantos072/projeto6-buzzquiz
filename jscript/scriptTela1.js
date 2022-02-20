@@ -35,9 +35,6 @@ function renderizarListaQuizzes(lista, container) {
         montarListaQuizz += `<div>`;
         document.querySelector(container).innerHTML += montarListaQuizz;
 
-
-
-
     }
 
   
