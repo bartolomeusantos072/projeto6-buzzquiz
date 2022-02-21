@@ -38,9 +38,11 @@ section {
     align-items: center;
     margin-bottom: 5%;
 }
-.section .decidir-niveis{
+
+.section .decidir-niveis {
     padding-bottom: 15%;
 }
+
 .subtitulo {
     min-width: 91vw;
 
@@ -403,11 +405,23 @@ h5 {
     justify-content: space-between;
     align-items: center;
 }
-.cores{
+
+.inputs-txt {
+    width: 341px;
+    height: 177px;
+    border: 1px solid #D1D1D1;
+    box-sizing: border-box;
+    border-radius: 5px;
+    font-style: italic;
+    font-size: 19px;
+}
+
+.cores {
     height: 41px;
-    border:0;
+    border: 0;
     width: 80%;
 }
+
 .botao-formulario {
     width: 324px;
     height: 54px;
@@ -432,20 +446,23 @@ h5 {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
     display: flex;
     align-items: center;
-    
+
 }
 
 .editor {
     cursor: pointer;
-    
+
 }
-.ocultar{
-    display:none;
+
+.ocultar {
+    display: none;
 }
-.label{
+
+.label {
     font-size: 14px;
     font-weight: bold;
 }
+
 @media (min-width: 414px) {
 
     .quizz-item, .quizz-item-criar {
