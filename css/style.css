@@ -399,8 +399,15 @@ h5 {
     border-radius: 5px;
     margin: 4.5px;
     padding-left: 23.16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
-
+.cores{
+    height: 41px;
+    border:0;
+    width: 80%;
+}
 .botao-formulario {
     width: 324px;
     height: 54px;
