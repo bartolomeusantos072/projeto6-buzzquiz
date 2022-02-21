@@ -1,23 +1,15 @@
-const QUANTIDADEPERGUNTAS = 3,
+const QUANTIDADEPERGUNTAS = 0,
     TAMANHOMINIMO = 20,
     TAMANHOMAXIMO = 65;
+let qtde_niveis;
+const novoQuizz = {
 
-let novoQuizz = {
-    id: null,
     title: null,
     image: null,
-    questions: [{
-        title: null,
-        color: null,
-        answers: [{
-            text: null,
-            image: null,
-            isCorrectAnswer: true
-
-        }]
-    }],
-    levels: { title: null, image: null },
+    questions: [],
+    levels: [],
 };
+
 let erradas = [];
 
 function criarQuizz() {
@@ -62,6 +54,7 @@ function validarPasso1() {
         titulo.focus();
         return;
     }
+
     if (/\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url_imagem.value) == false) {
         alert("Endereço de imagem invalido");
         url_imagem.focus();
@@ -85,7 +78,7 @@ function validarPasso1() {
     novoQuizz.title = titulo.value;
     novoQuizz.image = url_imagem.value;
     // novoQuizz.questions.length = qtde_pergunta.value;
-    novoQuizz.levels.length = nivel.value;
+    qtde_niveis = nivel.value;
 
 
     document.querySelector(".novo-quizz").style.display = "none";
@@ -129,15 +122,15 @@ function criarPerguntas(qtde) {
                 </div>
                 <span class="subtitulo-formulario"><h5>Resposta incorretas</h5></span>`;
 
-        respostasIncorretas[i] = 1;
-        // respostasIncorretas[i]= prompt("Quantas repostas erradas para a "+(i+1)+"º pergunta?");
+        // respostasIncorretas[i] = 1;
+        respostasIncorretas[i] = prompt("Quantas repostas erradas para a " + (i + 1) + "º pergunta?");
 
         if (respostasIncorretas[i] > 0 && respostasIncorretas[i] < 4) {
             for (let j = 0; j < respostasIncorretas[i]; j++) {
                 montarQuestoes += `
                         <div class="alternativa-false">
-                            <input class="inputs" type="text" id="resposta_incorreta_${j + 1}" placeholder="Resposta incorreta 1" required>
-                            <input class="inputs" type="text" id="url_imagem_resposta_${j + 2}" placeholder="URL da imagem 1" required>
+                            <input class="inputs" type="text" id="resposta_incorreta_${i}${j}" placeholder="Resposta incorreta 1" required>
+                            <input class="inputs" type="text" id="url_imagem_resposta_${i}${j}" placeholder="URL da imagem 1" required>
                         </div>`;
             };
         } else {
@@ -145,7 +138,8 @@ function criarPerguntas(qtde) {
             return;
         };
         erradas.push(respostasIncorretas[i]);
-        montarQuestoes += `
+    
+    montarQuestoes += `
                 </div>
                 </div>`;
 
@@ -153,7 +147,7 @@ function criarPerguntas(qtde) {
     };
     montarQuestoes += `</div>
              <button class="botao-formulario" onclick="validarPasso2(${qtde})">Prosseguir pra criar perguntas</button>`;
-  
+
     montarQuestoes += `</section>
     </div>`;
 
@@ -171,8 +165,17 @@ function exibirPerguntas(exibir) {
 function validarPasso2(qtde_pergunta) {
 
     for (let i = 0; i < qtde_pergunta; i++) {
+        const respostaCorreta = {};
 
+        novoQuizz.questions.push({ answers: [] });
 
+        /*Para realizar validacao do passo 2 */
+        novoQuizz.questions[i].title= "Nayane Thalyta e Bartolomeu";
+        novoQuizz.questions[i].color="#FFF000";
+        respostaCorreta.text ="Familia;";
+        respostaCorreta.image = "https://upload.wikimedia.org/wikipedia/pt/a/ac/Vegeta.jpg";
+        respostaCorreta.isCorrectAnswer = true;
+       /*
 
         if (document.getElementById("perguntas_quizz_" + (i + 1)).value.length < TAMANHOMINIMO) {
             alert("Seu titulo da pergunta " + (i + 1) + " não foi preenchido");
@@ -191,13 +194,15 @@ function validarPasso2(qtde_pergunta) {
             novoQuizz.questions[i].color = document.getElementById("cor_quizz_" + (i + 1)).value;
         }
 
+        //resposta certa
         if (document.getElementById("resposta_ok_" + (i + 1)).value.length === "") {
             alert("Não é permitido resposta vazia");
             document.getElementById("resposta_ok_" + (i + 1)).focus;
             return;
         } else {
-            novoQuizz.questions[i].answers[0].text = document.getElementById("resposta_ok_" + (i + 1)).value;
-            novoQuizz.questions[i].answers[0].isCorrectAnswer = true;
+            respostaCorreta.text = document.getElementById("resposta_ok_" + (i + 1)).value;
+            
+
         }
 
         if (/\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(document.getElementById("url_imagem_resposta_1_" + (i + 1)).value) == false) {
@@ -205,43 +210,51 @@ function validarPasso2(qtde_pergunta) {
             document.getElementById("url_imagem_resposta_1_" + (i + 1)).focus();
             return;
         } else {
-            novoQuizz.questions[i].answers[0].image = document.getElementById("url_imagem_resposta_1_" + (i + 1)).value;
+            respostaCorreta.image = document.getElementById("url_imagem_resposta_1_" + (i + 1)).value;
         }
+*/
+        novoQuizz.questions[i].answers.push(respostaCorreta);
 
+        
 
+        //respostas erradas
         for (let j = 0; j < erradas[i]; j++) {
-            if (document.getElementById("resposta_incorreta_" + (j + 1)).value.length === "") {
+            const respostaInCorreta = {};
+            respostaInCorreta.text ="Familia;";
+            respostaInCorreta.image = "https://upload.wikimedia.org/wikipedia/pt/a/ac/Vegeta.jpg";
+            respostaInCorreta.isCorrectAnswer = false;
+/*
+            if (document.getElementById(`resposta_incorreta_${i}${j}`).value.length === "") {
                 alert("Não é permitido resposta vazia");
-                document.getElementById("resposta_incorreta_" + (j + 1)).focus;
+                document.getElementById(`resposta_incorreta_${i}${j}`).focus;
                 return;
             } else {
-                alert(document.getElementById("resposta_incorreta_" + (j + 1)).value + "tambem" + (j + 1));
-                // novoQuizz.questions[i].answers[j+1].text = document.getElementById("resposta_incorreta_"+(j+1)).value;
-                novoQuizz.questions[i].answers[j + i].isCorrectAnswer = false;
+                
+                respostaInCorreta.text = document.getElementById(`resposta_incorreta_${i}${j}`).value;
+               
             }
 
-            if (/\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(document.getElementById("url_imagem_resposta_" + (j + 2)).value) == false) {
+            if (/\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(document.getElementById(`url_imagem_resposta_${i}${j}`).value) == false) {
                 alert("Endereço de imagem invalido");
-                document.getElementById("url_imagem_resposta_" + (j + 2)).focus();
+                document.getElementById(`url_imagem_resposta_${i}${j}`).focus();
                 return;
             } else {
-                novoQuizz.questions[i].answers[j + i].image = document.getElementById("url_imagem_resposta_" + (j + 2)).value;
+                respostaInCorreta.image = document.getElementById(`url_imagem_resposta_${i}${j}`).value;
             }
+            */
+            novoQuizz.questions[i].answers.push(respostaInCorreta);
         }
 
 
 
     }
 
-    //a pessoa vai preencher quantos tiver, para saber quantos tem
-    alert("Tudo ok");
-
 
     decidirNiveis();
 
 }
 
-function decidirNiveis(qtde) {
+function decidirNiveis() {
     document.querySelector(".criar-perguntas").style.display = "none";
 
     let montarNiveis = `
@@ -249,79 +262,113 @@ function decidirNiveis(qtde) {
         <section>
             <div class="titulo-formulario"><h2>Agora, decida os níveis!</h2></div>
             <div class="questoes-formulario">`;
-    for (let i = 0; i < qtde; i++) {
+    for (let i = 0; i < qtde_niveis; i++) {
+
+      
         montarNiveis += `
                 <div class="perguntas">
                                 <span class="subtitulo-formulario" > 
-                                            <h5>Nivel ${(i+1)}</h5>`;
-        
+                                            <h5>Nivel ${(i + 1)}</h5>`;
+
         if (i > 0) {
+            
             montarNiveis += `
-                        <ion-icon name="create-outline" onclick="exibirNiveis(this)"></ion-icon></span>
-                    <div class="ocultar">`;
+                        <ion-icon name="create-outline" onclick="exibirPerguntas(this)"></ion-icon></span>
+                        <div class="ocultar">`;
         } else {
             montarNiveis += `</span>
                     <div>`;
         }
-    
+
         montarNiveis += `
             
-                <input class="inputs" type="text" name="tx_titulo_nivel_${i+1}" placeholder="Titulo do Nivel" required>
-                <input class="inputs" type="text" name="porcentagem_acerto_${i+1}"placeholder="Porcentagem de acerto mínima" required>
-                <input class="inputs" type="text" name="url_imagem_nivel_${i+1}" placeholder="Url da imagem do nível" required>
-                <textarea class=" inputs inputs-txt" type="text" name="tx_textarea_nivel_${i+1}" placeholder="Descrição do nível" required></textarea>
+                <input class="inputs" type="text" name="tx_titulo_nivel_${i + 1}" placeholder="Titulo do Nivel" required>
+
+                <input class="inputs" type="text" name="porcentagem_acerto_${i + 1}"placeholder="Porcentagem de acerto mínima" required>
+
+                <input class="inputs" type="text" name="url_imagem_nivel_${i + 1}" placeholder="Url da imagem do nível" required>
+
+                <textarea class=" inputs inputs-txt" type="text" name="tx_textarea_nivel_${i + 1}" placeholder="Descrição do nível" required></textarea>
+
+                
                 </div>
-                </div>
-            </div>
-        <button class="botao-formulario" onclick="validarPasso3(${qtde})">Prosseguir pra criar perguntas</button>
-        </section>
-    </div>`;
-    };    
+                </div>`;
+
+
+            };
+            montarNiveis += `</div>
+                     <button class="botao-formulario" onclick="validarPasso3(${qtde_niveis})">Finalizar Quizz</button>`;
+        
+            montarNiveis += `</section>
+            </div>`;
+
     document.body.innerHTML += montarNiveis;
 }
 
-function exibirNiveis(exibir) {
 
-    exibir.parentElement.parentElement.children[1].classList.remove("ocultar");
-}
-
-function validarPasso3(){
+function validarPasso3(qtde) {
     for (let i = 0; i < qtde; i++) {
+        novoQuizz.levels.push({ answers: [] });
+        let num=25;
+        novoQuizz.levels[i].title = "Você é o cara";
+        novoQuizz.levels[i].image = "https://observatoriodocinema.uol.com.br/wp-content/uploads/2021/07/dragon-ball-super-1200x900-1.jpg";
+        novoQuizz.levels[i].text ="Ondie fica o planeta Nobiru";
 
-      if (document.getElementById("tx_titulo_nivel_" + (i + 1)).value.length < 10) {
-        alert("Seu titulo de nível " + (i + 1) + " não foi preenchido corretamente");
-        document.getElementById("tx_titulo_nivel_" + (i + 1)).focus;
-        return;
-    } else {
-        novoQuizz.levels[i].title = document.getElementById("tx_titulo_nivel_" + (i + 1)).value;
-    }
+        /*
+        if (document.getElementById("tx_titulo_nivel_" + (i + 1)).value.length < 10) {
+            alert("Seu titulo de nível " + (i + 1) + " não foi preenchido corretamente");
+            document.getElementById("tx_titulo_nivel_" + (i + 1)).focus;
+            return;
+        } else {
+            novoQuizz.levels[i].title = document.getElementById("tx_titulo_nivel_" + (i + 1)).value;
+        }
 
-    let num= document.getElementById("porcentagem_acerto_" + (i + 1)).value;
-    if ( num < 0 && num >100 ) {
-        alert("Esse valor não foi preenchido corretamente");
-        document.getElementById("porcentagem_acerto_" + (i + 1)).focus;
-        return;
-    } else {
-        novoQuizz.levels[i].minValue = document.getElementById("porcentagem_acerto_" + (i + 1)).value;
-    }
-    
- 
-    if (/\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(document.getElementById("url_imagem_nivel_" + (i + 1)).value) == false) {
-        alert("Endereço de imagem invalido");
-        document.getElementById("url_imagem_nivel_" + (i + 1)).focus();
-        return;
-    } else {
-        novoQuizz.levels[i].image = document.getElementById("url_imagem_nivel_" + (i + 1)).value;
-    }
+        num = document.getElementById("porcentagem_acerto_" + (i + 1)).value;
+        if (num < 0 && num > 100) {
+            alert("Esse valor não foi preenchido corretamente");
+            document.getElementById("porcentagem_acerto_" + (i + 1)).focus;
+            return;
+        } else {
+            novoQuizz.levels[i].minValue = document.getElementById("porcentagem_acerto_" + (i + 1)).value;
+        }
 
-    if (document.getElementById("tx_textarea_nivel_" + (i + 1)).value.length < 30) {
-        alert("Seu titulo de nível " + (i + 1) + " não foi preenchido corretamente");
-        document.getElementById("tx_textarea_nivel_" + (i + 1)).focus;
-        return;
-    } else {
-        novoQuizz.levels[i].text = document.getElementById("tx_textarea_nivel_" + (i + 1)).value;
-    }
 
+        if (/\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(document.getElementById("url_imagem_nivel_" + (i + 1)).value) == false) {
+            alert("Endereço de imagem invalido");
+            document.getElementById("url_imagem_nivel_" + (i + 1)).focus();
+            return;
+        } else {
+            novoQuizz.levels[i].image = document.getElementById("url_imagem_nivel_" + (i + 1)).value;
+        }
+
+        if (document.getElementById("tx_textarea_nivel_" + (i + 1)).value.length < 30) {
+            alert("Seu titulo de nível " + (i + 1) + " não foi preenchido corretamente");
+            document.getElementById("tx_textarea_nivel_" + (i + 1)).focus;
+            return;
+        } else {
+            novoQuizz.levels[i].text = document.getElementById("tx_textarea_nivel_" + (i + 1)).value;
+        }
+        */
+        alert("Tudo certo pode faze o Post");
+        finalizarQuizz(novoQuizz);
 
     }
 }
+
+function finalizarQuizz(objeto){
+    document.querySelector(".decidir-niveis").style.display = "none";
+    
+    console.log(objeto);
+}
+//quando eu clicar no botão Finalizar Quizz
+// let objetoPostado={};
+// let promise =axios.post("herf",novoQuizz).then(function(response){
+//     objetoPostado=response.data;
+//     console.log(objetoPostado.id);
+// }).catch((error)=>{console.log(error);});
+
+//guardar id no localStorage
+
+//mostrar a tela do seu quizz esta pronto
+
+//atualizar GET da pagina inicial
