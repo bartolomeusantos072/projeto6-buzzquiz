@@ -1,4 +1,4 @@
-// let idsDoUsuario = [];
+let idsDoUsuario = [];
 
 
 const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
@@ -32,7 +32,7 @@ function renderizarListaQuizzes(lista, container) {
         <span class="titulo-quizzes"><h3>
         
         ${lista[i].title}</h3></span> `;
-        montarListaQuizz += `<div>`;
+        montarListaQuizz += ``;
         document.querySelector(container).innerHTML += montarListaQuizz;
 
     }

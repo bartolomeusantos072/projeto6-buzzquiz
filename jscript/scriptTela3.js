@@ -1,9 +1,8 @@
-const QUANTIDADEPERGUNTAS = 0,
+const QUANTIDADEPERGUNTAS = 3,
     TAMANHOMINIMO = 20,
     TAMANHOMAXIMO = 65;
 let qtde_niveis;
 const novoQuizz = {
-
     title: null,
     image: null,
     questions: [],
@@ -44,8 +43,8 @@ function validarPasso1() {
     /*Para realizar valido de passo 1 */
     titulo.value = "Nayane Thalyta e Bartolomeu";
     url_imagem.value = "https://upload.wikimedia.org/wikipedia/pt/a/ac/Vegeta.jpg";
-    qtde_pergunta.value = 1;
-    nivel.value = 2;
+    qtde_pergunta.value = Number(3);
+    nivel.value = Number(2);
 
 
     if (titulo.value.length < TAMANHOMINIMO || titulo.value.length > TAMANHOMAXIMO) {
@@ -113,7 +112,7 @@ function criarPerguntas(qtde) {
                 
                 <input class="inputs" type="text" id="perguntas_quizz_${i + 1}" placeholder="Texto da pergunta" required>
                 
-                <div class="inputs"><input class="cores" type="text" id="cor_quizz_${i + 1}" placeholder="Cor de Fundo da pergunta" required=""></div>
+                <input class="inputs" type="text" id="cor_quizz_${i + 1}" placeholder="Cor de Fundo da pergunta" required="">
                 
                 <span class="subtitulo-formulario"><h5>Resposta correta</h5></span>
                  <div class="alternativa-true">       
@@ -122,8 +121,8 @@ function criarPerguntas(qtde) {
                 </div>
                 <span class="subtitulo-formulario"><h5>Resposta incorretas</h5></span>`;
 
-        // respostasIncorretas[i] = 1;
-        respostasIncorretas[i] = prompt("Quantas repostas erradas para a " + (i + 1) + "º pergunta?");
+        respostasIncorretas[i] = 2;
+        // respostasIncorretas[i] = prompt("Quantas repostas erradas para a " + (i + 1) + "º pergunta?");
 
         if (respostasIncorretas[i] > 0 && respostasIncorretas[i] < 4) {
             for (let j = 0; j < respostasIncorretas[i]; j++) {
@@ -138,8 +137,8 @@ function criarPerguntas(qtde) {
             return;
         };
         erradas.push(respostasIncorretas[i]);
-    
-    montarQuestoes += `
+
+        montarQuestoes += `
                 </div>
                 </div>`;
 
@@ -167,81 +166,81 @@ function validarPasso2(qtde_pergunta) {
     for (let i = 0; i < qtde_pergunta; i++) {
         const respostaCorreta = {};
 
-        novoQuizz.questions.push({ answers: [] });
+        novoQuizz.questions.push({ title:"", color:"", answers: [] });
 
         /*Para realizar validacao do passo 2 */
-        novoQuizz.questions[i].title= "Nayane Thalyta e Bartolomeu";
-        novoQuizz.questions[i].color="#FFF000";
-        respostaCorreta.text ="Familia;";
+        novoQuizz.questions[i].title = "Quem gosta de ventilador?";
+        novoQuizz.questions[i].color = "#FFF000";
+        respostaCorreta.text = "Familia";
         respostaCorreta.image = "https://upload.wikimedia.org/wikipedia/pt/a/ac/Vegeta.jpg";
         respostaCorreta.isCorrectAnswer = true;
-       /*
-
-        if (document.getElementById("perguntas_quizz_" + (i + 1)).value.length < TAMANHOMINIMO) {
-            alert("Seu titulo da pergunta " + (i + 1) + " não foi preenchido");
-            document.getElementById("perguntas_quizz_" + (i + 1)).focus;
-            return;
-        } else {
-            novoQuizz.questions[i].title = document.getElementById("perguntas_quizz_" + (i + 1)).value;
-        }
-
-
-        if (/^#[0-9A-F]{6}$/i.test(document.getElementById("cor_quizz_" + (i + 1)).value) == false) {
-            alert("Cor invalida por favor informe uma cor no formato hexdecimal exemplo: #00FF00");
-            document.getElementById("cor_quizz_" + (i + 1)).focus;
-            return
-        } else {
-            novoQuizz.questions[i].color = document.getElementById("cor_quizz_" + (i + 1)).value;
-        }
-
-        //resposta certa
-        if (document.getElementById("resposta_ok_" + (i + 1)).value.length === "") {
-            alert("Não é permitido resposta vazia");
-            document.getElementById("resposta_ok_" + (i + 1)).focus;
-            return;
-        } else {
-            respostaCorreta.text = document.getElementById("resposta_ok_" + (i + 1)).value;
-            
-
-        }
-
-        if (/\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(document.getElementById("url_imagem_resposta_1_" + (i + 1)).value) == false) {
-            alert("Endereço de imagem invalido");
-            document.getElementById("url_imagem_resposta_1_" + (i + 1)).focus();
-            return;
-        } else {
-            respostaCorreta.image = document.getElementById("url_imagem_resposta_1_" + (i + 1)).value;
-        }
-*/
+        /*
+ 
+         if (document.getElementById("perguntas_quizz_" + (i + 1)).value.length < TAMANHOMINIMO) {
+             alert("Seu titulo da pergunta " + (i + 1) + " não foi preenchido");
+             document.getElementById("perguntas_quizz_" + (i + 1)).focus;
+             return;
+         } else {
+             novoQuizz.questions[i].title = document.getElementById("perguntas_quizz_" + (i + 1)).value;
+         }
+ 
+ 
+         if (/^#[0-9A-F]{6}$/i.test(document.getElementById("cor_quizz_" + (i + 1)).value) == false) {
+             alert("Cor invalida por favor informe uma cor no formato hexdecimal exemplo: #00FF00");
+             document.getElementById("cor_quizz_" + (i + 1)).focus;
+             return
+         } else {
+             novoQuizz.questions[i].color = document.getElementById("cor_quizz_" + (i + 1)).value;
+         }
+ 
+         //resposta certa
+         if (document.getElementById("resposta_ok_" + (i + 1)).value.length === "") {
+             alert("Não é permitido resposta vazia");
+             document.getElementById("resposta_ok_" + (i + 1)).focus;
+             return;
+         } else {
+             respostaCorreta.text = document.getElementById("resposta_ok_" + (i + 1)).value;
+             
+ 
+         }
+ 
+         if (/\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(document.getElementById("url_imagem_resposta_1_" + (i + 1)).value) == false) {
+             alert("Endereço de imagem invalido");
+             document.getElementById("url_imagem_resposta_1_" + (i + 1)).focus();
+             return;
+         } else {
+             respostaCorreta.image = document.getElementById("url_imagem_resposta_1_" + (i + 1)).value;
+         }
+ */
         novoQuizz.questions[i].answers.push(respostaCorreta);
 
-        
+
 
         //respostas erradas
         for (let j = 0; j < erradas[i]; j++) {
             const respostaInCorreta = {};
-            respostaInCorreta.text ="Familia;";
+            respostaInCorreta.text = "Familia;";
             respostaInCorreta.image = "https://upload.wikimedia.org/wikipedia/pt/a/ac/Vegeta.jpg";
             respostaInCorreta.isCorrectAnswer = false;
-/*
-            if (document.getElementById(`resposta_incorreta_${i}${j}`).value.length === "") {
-                alert("Não é permitido resposta vazia");
-                document.getElementById(`resposta_incorreta_${i}${j}`).focus;
-                return;
-            } else {
-                
-                respostaInCorreta.text = document.getElementById(`resposta_incorreta_${i}${j}`).value;
-               
-            }
-
-            if (/\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(document.getElementById(`url_imagem_resposta_${i}${j}`).value) == false) {
-                alert("Endereço de imagem invalido");
-                document.getElementById(`url_imagem_resposta_${i}${j}`).focus();
-                return;
-            } else {
-                respostaInCorreta.image = document.getElementById(`url_imagem_resposta_${i}${j}`).value;
-            }
-            */
+            /*
+                        if (document.getElementById(`resposta_incorreta_${i}${j}`).value.length === "") {
+                            alert("Não é permitido resposta vazia");
+                            document.getElementById(`resposta_incorreta_${i}${j}`).focus;
+                            return;
+                        } else {
+                            
+                            respostaInCorreta.text = document.getElementById(`resposta_incorreta_${i}${j}`).value;
+                           
+                        }
+            
+                        if (/\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(document.getElementById(`url_imagem_resposta_${i}${j}`).value) == false) {
+                            alert("Endereço de imagem invalido");
+                            document.getElementById(`url_imagem_resposta_${i}${j}`).focus();
+                            return;
+                        } else {
+                            respostaInCorreta.image = document.getElementById(`url_imagem_resposta_${i}${j}`).value;
+                        }
+                        */
             novoQuizz.questions[i].answers.push(respostaInCorreta);
         }
 
@@ -264,14 +263,14 @@ function decidirNiveis() {
             <div class="questoes-formulario">`;
     for (let i = 0; i < qtde_niveis; i++) {
 
-      
+
         montarNiveis += `
                 <div class="perguntas">
                                 <span class="subtitulo-formulario" > 
                                             <h5>Nivel ${(i + 1)}</h5>`;
 
         if (i > 0) {
-            
+
             montarNiveis += `
                         <ion-icon name="create-outline" onclick="exibirPerguntas(this)"></ion-icon></span>
                         <div class="ocultar">`;
@@ -295,11 +294,11 @@ function decidirNiveis() {
                 </div>`;
 
 
-            };
-            montarNiveis += `</div>
+    };
+    montarNiveis += `</div>
                      <button class="botao-formulario" onclick="validarPasso3(${qtde_niveis})">Finalizar Quizz</button>`;
-        
-            montarNiveis += `</section>
+
+    montarNiveis += `</section>
             </div>`;
 
     document.body.innerHTML += montarNiveis;
@@ -308,11 +307,12 @@ function decidirNiveis() {
 
 function validarPasso3(qtde) {
     for (let i = 0; i < qtde; i++) {
-        novoQuizz.levels.push({ answers: [] });
-        let num=25;
+        novoQuizz.levels.push({ });
+        let num = 25;
         novoQuizz.levels[i].title = "Você é o cara";
         novoQuizz.levels[i].image = "https://observatoriodocinema.uol.com.br/wp-content/uploads/2021/07/dragon-ball-super-1200x900-1.jpg";
-        novoQuizz.levels[i].text ="Ondie fica o planeta Nobiru";
+        novoQuizz.levels[i].text = "Ondie fica o planeta Nobiru";
+        novoQuizz.levels[i].minValue =Number(50);
 
         /*
         if (document.getElementById("tx_titulo_nivel_" + (i + 1)).value.length < 10) {
@@ -349,23 +349,64 @@ function validarPasso3(qtde) {
             novoQuizz.levels[i].text = document.getElementById("tx_textarea_nivel_" + (i + 1)).value;
         }
         */
-        alert("Tudo certo pode faze o Post");
-        finalizarQuizz(novoQuizz);
 
     }
+    enviarQuizz(novoQuizz);
+
 }
 
-function finalizarQuizz(objeto){
+function enviarQuizz(objeto){
+
     document.querySelector(".decidir-niveis").style.display = "none";
     
+    let objetoPostado={};
+
+    
+    axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', objeto)
+      .then(function (response) {
+        objetoPostado = response.data;  
+        idsDoUsuario.push(objetoPostado.id);
+        // console.log(response);
+      })
+      .catch(function (error) {
+          alert("algo deu errado"+error);
+        console.log(error);
+      });
+
+    mostrarQuizz();
+
     console.log(objeto);
 }
-//quando eu clicar no botão Finalizar Quizz
-// let objetoPostado={};
-// let promise =axios.post("herf",novoQuizz).then(function(response){
-//     objetoPostado=response.data;
-//     console.log(objetoPostado.id);
-// }).catch((error)=>{console.log(error);});
+
+
+function mostrarQuizz() {
+    let mostrar_quizz = `
+    <div class="quizz-pronto">
+<section>
+    <div class="titulo-formulario"><h2>Seu quizz está Pronto!</h2>
+    </div>
+        
+    <div class="questoes-formulario">
+        <div class="quizz-item" onclick="selecionarQuizz(this,0)" style="background-image: 
+            linear-gradient( 180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%),
+             url('${novoQuizz.image}')">
+                <span class="titulo-quizzes">
+                        <h3>${novoQuizz.title}</h3>
+                </span>
+        </div>
+    </div>
+
+    <div class="botao">
+            <button class="reiniciar" onclick="acessarQuizz(this,0)">Acessar Quizz</button>
+            <button class="voltar" onclick="voltarParaHome()">Voltar para Home</button>
+    </div>
+</section>  
+</div>
+`;
+    document.body.innerHTML += mostrar_quizz;
+}
+
+
 
 //guardar id no localStorage
 
