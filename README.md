@@ -114,8 +114,8 @@ O design foi criado para ser simples e direto, priorizando a funcionalidade e a 
 
 ## 🔗 **Links Úteis**
 
-* **Repositório no GitHub**: [Link para o repositório](https://github.com/SEU_USUARIO/projeto6-buzzquiz)
-* **Deploy no GitHub Pages**: [Acesse o projeto em produção](https://SEU_USUARIO.github.io/projeto6-buzzquiz/)
+* **Repositório no GitHub**: [Link para o repositório](https://github.com/bartolomeusantos072/-buzzquiz)
+* **Deploy no GitHub Pages**: [Acesse o projeto em produção](https://bartolomeusantos072.github.io/buzzquiz/)
 
 ---
 
