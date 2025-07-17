@@ -1,32 +1,32 @@
-const 
-    QUANTIDADEPERGUNTAS = 3,
-    NIVELPERGUNTAS = 3,       
-    TAMANHOMINIMO = 10,
-    TAMANHOMAXIMO = 65;
-
-
 let erradas = [];
-const novoQuizz = {
-    title: "",
-    image: "",
-    questions: [],
-    levels: [],
-};
+function validarTexto(input, min, max, campo) {
+    const value = input.value.trim();
+    if (value.length < min || value.length > max) {
+        alert(`${campo} deve ter entre ${min} e ${max} caracteres.`);
+        input.focus();
+        return false;
+    }
+    return true;
+}
 
-function criarQuizz() {
-    document.body.innerHTML += `
-    <div class="novo-quizz">
-        <section>
-            <div class="titulo-formulario"><h2>Comece pelo começo</h2></div>
-            <div class="questoes-formulario">
-                <input class="inputs" type="text" id="titulo_quizz" placeholder="Título do seu quizz" required>
-                <input class="inputs" type="text" id="url_imagem_quizz" placeholder="URL da imagem do seu quizz" required>
-                <input class="inputs" type="number" id="qtde_pergunta_quizz" min="${QUANTIDADEPERGUNTAS}" placeholder="Quantidade de perguntas do quizz" required>
-                <input class="inputs" type="number" id="qtde_nivel_quizz" min="${NIVELPERGUNTAS}" placeholder="Quantidade de níveis do quizz" required>
-            </div>
-            <button class="botao-formulario" onclick="validarPasso1()">Prosseguir pra criar perguntas</button>
-        </section>  
-    </div>`;
+function validarImagem(input, campo) {
+    const value = input.value.trim();
+    if (!/\.(jpg|jpeg|png|webp|avif|gif|svg)$/i.test(value)) {
+        alert(`${campo} deve ser uma URL de imagem válida (ex: .jpg, .jpeg, .png).`);
+        input.focus();
+        return false;
+    }
+    return true;
+}
+
+function validarPorcentagem(input, campo) {
+    const value = parseInt(input.value);
+    if (isNaN(value) || value < 0 || value > 100) {
+        alert(`${campo} deve ser um número entre 0 e 100.`);
+        input.focus();
+        return false;
+    }
+    return true;
 }
 
 function validarPasso1() {
@@ -84,7 +84,63 @@ function validarPasso1() {
     criarPerguntas(qtdPerguntas);
 }
 
+function exibirPerguntas(exibir) {
+    exibir.parentElement.parentElement.children[1].classList.remove("ocultar");
+}
+
+function validarPasso2(questions) {
+    for (let i = 0; i < questions; i++) {
+        const textoPergunta = document.getElementById(`perguntas_quizz_${i + 1}`);
+        const corPergunta = document.getElementById(`cor_quizz_${i + 1}`);
+        const textoCorreta = document.getElementById(`resposta_ok_${i + 1}`);
+        const imagemCorreta = document.getElementById(`url_imagem_resposta_1_${i + 1}`);
+
+        // Valida o texto da pergunta
+        if (!validarTexto(textoPergunta, TAMANHOMINIMO, TAMANHOMAXIMO, `Texto da pergunta ${i + 1}`)) return;
+
+        // Valida a cor da pergunta
+        if (!/^#[0-9A-Fa-f]{6}$/.test(corPergunta.value)) {
+            alert("Cor inválida. Use formato hexadecimal como #00FF00.");
+            corPergunta.focus();
+            return;
+        }
+
+        // Valida a resposta correta
+        if (!validarTexto(textoCorreta, 1, 100, `Resposta correta ${i + 1}`)) return;
+        if (!validarImagem(imagemCorreta, `Imagem da resposta correta ${i + 1}`)) return;
+
+        // Adiciona a resposta correta
+        const respostaCorreta = {
+            text: textoCorreta.value.trim(),
+            image: imagemCorreta.value.trim(),
+            isCorrectAnswer: true
+        };
+        novoQuizz.questions[i].title = textoPergunta.value.trim();
+        novoQuizz.questions[i].color = corPergunta.value.trim();
+        novoQuizz.questions[i].answers.push(respostaCorreta);
+
+        // Valida as respostas incorretas
+        for (let j = 0; j < erradas[i]; j++) {
+            const respostaIncorreta = document.getElementById(`resposta_incorreta_${i}_${j}`);
+            const imagemErrada = document.getElementById(`url_imagem_resposta_${i}_${j}`);
+            
+            if (!validarTexto(respostaIncorreta, 1, 100, `Resposta incorreta ${j + 1}`)) return;
+            if (!validarImagem(imagemErrada, `Imagem da resposta incorreta ${j + 1}`)) return;
+
+            // Adiciona a resposta incorreta
+            novoQuizz.questions[i].answers.push({
+                text: respostaIncorreta.value.trim(),
+                image: imagemErrada.value.trim(),
+                isCorrectAnswer: false
+            });
+        }
+    }
+
+    decidirNiveis();
+}
+
 function criarPerguntas(qtde) {
+    
     let montarQuestoes = `<div class="criar-perguntas"><section>
         <div class="titulo-formulario"><h2>Crie Suas Perguntas</h2></div>
         <div class="questoes-formulario">`;
@@ -137,76 +193,6 @@ function criarPerguntas(qtde) {
     document.body.innerHTML += montarQuestoes;
 }
 
-function exibirPerguntas(exibir) {
-    exibir.parentElement.parentElement.children[1].classList.remove("ocultar");
-}
-
-function validarPasso2(questions) {
-    for (let i = 0; i < questions; i++) {
-        const respostaCorreta = {};
-
-        const textoPergunta = document.getElementById(`perguntas_quizz_${i + 1}`).value.trim();
-        const corPergunta = document.getElementById(`cor_quizz_${i + 1}`).value;
-        const textoCorreta = document.getElementById(`resposta_ok_${i + 1}`).value.trim();
-        const imagemCorreta = document.getElementById(`url_imagem_resposta_1_${i + 1}`).value;
-
-        if (textoPergunta.length < TAMANHOMINIMO) {
-            alert(`Texto da pergunta ${i + 1} muito curto.`);
-            document.getElementById(`perguntas_quizz_${i + 1}`).focus();
-            return;
-        }
-
-        if (!/^#[0-9A-Fa-f]{6}$/.test(corPergunta)) {
-            alert("Cor inválida. Use formato hexadecimal como #00FF00.");
-            document.getElementById(`cor_quizz_${i + 1}`).focus();
-            return;
-        }
-
-        if (textoCorreta.length === 0) {
-            alert("Resposta correta não pode estar vazia.");
-            document.getElementById(`resposta_ok_${i + 1}`).focus();
-            return;
-        }
-
-        if (!/\.(jpg|jpeg|png|webp|avif|gif|svg)$/i.test(imagemCorreta)) {
-            alert("Imagem da resposta correta inválida.");
-            document.getElementById(`url_imagem_resposta_1_${i + 1}`).focus();
-            return;
-        }
-
-        respostaCorreta.text = textoCorreta;
-        respostaCorreta.image = imagemCorreta;
-        respostaCorreta.isCorrectAnswer = true;
-        novoQuizz.questions[i].title = textoPergunta;
-        novoQuizz.questions[i].color = corPergunta;
-        novoQuizz.questions[i].answers.push(respostaCorreta);
-
-        for (let j = 0; j < erradas[i]; j++) {
-            const respostaIncorreta = {};
-            const textoErrada = document.getElementById(`resposta_incorreta_${i}_${j}`).value.trim();
-            const imagemErrada = document.getElementById(`url_imagem_resposta_${i}_${j}`).value;
-
-            if (textoErrada.length === 0) {
-                alert("Resposta incorreta não pode estar vazia.");
-                document.getElementById(`resposta_incorreta_${i}_${j}`).focus();
-                return;
-            }
-
-            if (!/\.(jpg|jpeg|png|webp|avif|gif|svg)$/i.test(imagemErrada)) {
-                alert("Imagem da resposta incorreta inválida.");
-                document.getElementById(`url_imagem_resposta_${i}_${j}`).focus();
-                return;
-            }
-
-            respostaIncorreta.text = textoErrada;
-            respostaIncorreta.image = imagemErrada;
-            respostaIncorreta.isCorrectAnswer = false;
-            novoQuizz.questions[i].answers.push(respostaIncorreta);
-        }
-    }
-
-  decidirNiveis();
-}
 
 
 function decidirNiveis() {
@@ -272,7 +258,7 @@ function finalizaQuizz(qtde) {
         }
 
         num = document.getElementById("porcentagem_acerto_" + (i + 1)).value;
-        if (num < 0 && num > 100) {
+        if (num < 0 || num > 100) {
             alert("Esse valor não foi preenchido corretamente");
             document.getElementById("porcentagem_acerto_" + (i + 1)).focus();
             return;
@@ -322,8 +308,8 @@ async function enviarQuizz(objeto) {
         const objetoPostado = await resposta.json();
         idsDoUsuario.push(objetoPostado.id);
 
-        mostrarQuizz();
-        console.log(objetoPostado);
+        mostrarQuizz(objetoPostado);
+       
 
     } catch (error) {
         alert("Algo deu errado: " + error.message);
@@ -334,8 +320,7 @@ async function enviarQuizz(objeto) {
 }
 
 
-
-function mostrarQuizz() {
+function mostrarQuizz(objetoPostado) {
     let mostrar_quizz = `
     <div class="quizz-pronto">
 <section>
@@ -353,7 +338,7 @@ function mostrarQuizz() {
     </div>
 
     <div class="botao">
-            <button class="reiniciar" onclick="selecionarQuizz(this,0)">Acessar Quizz</button>
+            <button class="reiniciar" onclick="exibirQuiz(${objetoPostado})">Acessar Quizz</button>
             <button class="voltar" onclick="voltarParaHome()">Voltar para Home</button>
     </div>
 </section>  
