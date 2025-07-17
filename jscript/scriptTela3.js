@@ -345,3 +345,50 @@ function mostrarQuizz(objetoPostado) {
     document.body.innerHTML += mostrar_quizz;
 }
 
+function exibirQuiz(objetoPostado) {
+    let montarQuizz = ''; // Inicializa a string que vai conter o HTML das perguntas e respostas
+    
+    // Percorre todas as perguntas do quiz
+    for (let i = 0; i < objetoPostado.questions.length; i++) {
+        montarQuizz += `<div class="jogo">
+                            <div class="unico-jogo">
+                                <span class="titulo-quizz" 
+                                    style="background-color: ${objetoPostado.questions[i].color}">
+                                    <h3>${objetoPostado.questions[i].title}</h3>
+                                </span>
+                                <div class="perguntas">`;
+
+        // Pega as respostas da pergunta
+        let answers = objetoPostado.questions[i].answers;
+        
+        // Embaralha as respostas (como você faz com o comparador)
+        answers.sort(comparador);
+
+        // Para cada resposta, cria a estrutura HTML correspondente
+        answers.forEach(answer => {
+            let valor = answer.isCorrectAnswer ? 1 : 0; // Se a resposta for correta, valor = 1, senão, 0
+            montarQuizz += `<div class="escolher-resposta `;
+
+            // Se a resposta for correta, adiciona a classe "alternativa-true", caso contrário "alternativa-false"
+            if (answer.isCorrectAnswer) {
+                montarQuizz += ` alternativa-true mascara `;
+            } else {
+                montarQuizz += ` alternativa-false mascara `;
+            }
+
+            // Adiciona o HTML da resposta
+            montarQuizz += `" onclick="selectAnswer(this,${valor},${i})">
+                                <img src="${answer.image}" alt="Imagem da resposta">
+                                <span class="texto-resposta"><h4>${answer.text}</h4></span>
+                            </div>`;
+        });
+
+        // Fecha os divs das perguntas e jogo
+        montarQuizz += `         </div>
+                            </div>
+                        </div>`;
+    }
+
+    // Adiciona o HTML gerado ao container que vai exibir o quizz
+    document.querySelector(".todos-games").innerHTML = montarQuizz;
+}
