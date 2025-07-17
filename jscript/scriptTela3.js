@@ -193,8 +193,6 @@ function criarPerguntas(qtde) {
     document.body.innerHTML += montarQuestoes;
 }
 
-
-
 function decidirNiveis() {
     document.querySelector(".criar-perguntas").style.display = "none";
 
