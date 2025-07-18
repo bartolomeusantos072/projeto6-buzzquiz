@@ -1,7 +1,3 @@
-Claro! Aqui está uma versão mais focada em uma apresentação profissional para recrutadores, destacando suas habilidades e os detalhes do projeto:
-
----
-
 # **BuzzQuizz - Projeto de Quiz em HTML, CSS e JavaScript**
 
 ## 📝 **Descrição do Projeto**
@@ -11,7 +7,12 @@ O **BuzzQuizz** é um sistema de criação e interação com quizzes, onde os us
 Este projeto foi desenvolvido como parte de um desafio técnico, com foco na implementação de uma aplicação completa de front-end com comunicação assíncrona com o back-end através de uma API fornecida, que é responsável por persistir as informações dos quizzes.
 
 ---
+## 🔗 **Links Úteis**
 
+* **Repositório no GitHub**: [Link para o repositório](https://github.com/bartolomeusantos072/-buzzquizz)
+* **Deploy no GitHub Pages**: [Acesse o projeto em produção](https://bartolomeusantos072.github.io/buzzquizz/)
+
+---
 ## 🚀 **Tecnologias Utilizadas**
 
 * **HTML5**: Estruturação semântica da página.
@@ -109,13 +110,6 @@ O design foi criado para ser simples e direto, priorizando a funcionalidade e a 
 * **Tela de Loading**: Adição de uma tela de loading durante as interações com a API para melhorar a UX.
 * **Edição e Exclusão de Quizzes**: Funcionalidade para editar ou excluir quizzes criados pelo usuário.
 * **Validação de Erros de Entrada**: Mensagens de erro específicas para cada campo quando a entrada não atende aos requisitos.
-
----
-
-## 🔗 **Links Úteis**
-
-* **Repositório no GitHub**: [Link para o repositório](https://github.com/bartolomeusantos072/-buzzquizz)
-* **Deploy no GitHub Pages**: [Acesse o projeto em produção](https://bartolomeusantos072.github.io/buzzquizz/)
 
 ---
 
